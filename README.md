@@ -36,7 +36,18 @@
 
 ---
 
+## Entorno y librerías
 
+Proyecto desarrollado en Google Colab.
+
+Principales dependencias:
+- torch 2.2.2
+- torchtext 0.17.2
+- torchdata 0.7.1
+- numpy
+- matplotlib
+- tqdm
+---
 ## Ejecución 
 
 > ⚠️ **Este notebook fue desarrollado y ejecutado en Google Colab. Se recomienda abrirlo y ejecutarlo exclusivamente en ese entorno. (GPU T4)**  
@@ -45,7 +56,7 @@
 
 ---- > [![Abrir en Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1iFVUIYSlcAwgm6M3BRtPiOaIFLwEgEPe?usp=sharing)
 
-> El notebook descarga WikiText-2 automáticamente al ejecutarse mediante `torchtext.datasets.WikiText2` con un parche de compatibilidad MD5. No es necesario descargar el dataset manualmente.
+> El notebook descarga y prepara automáticamente WikiText-2 mediante `torchtext.datasets.WikiText2` junto con un parche de compatibilidad para torchtext 0.17.2.
 
 ---
 
@@ -67,3 +78,18 @@ El modelo optimizado reduce la perplexity un **54%** respecto a la versión base
 - Dropout p=0.4 entre capas
 - Adam lr=3e-4 con weight_decay=1e-5 y gradient clipping=0.25
 - LR decay automático (factor=0.5, patience=5)
+
+---
+
+## Limitaciones
+
+- Vanishing gradient: la celda Elman no puede capturar dependencias a más de ~10–20 tokens de distancia.
+- Procesamiento secuencial: no paralelizable como un Transformer.
+- Capacidad de contexto limitada: todo el historial se comprime en un único vector oculto.
+- La mejora propuesta es reemplazar la celda Elman por LSTM, que alcanza PPL ~65–85 en WikiText-2.
+
+---
+
+## Declaración de uso de IA
+
+Partes de este informe y del notebook fueron desarrolladas con asistencia de herramientas de IA, conforme a las normas del proyecto que permiten el uso de IA siempre que se declare explícitamente.
